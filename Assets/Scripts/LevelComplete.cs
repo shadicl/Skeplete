@@ -1,14 +1,24 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour
 {
-    public GameObject levelCompleteText;
-    public GameObject bones;
-    public BodyManager bodyManager;
+    [SerializeField] private GameObject levelCompleteText;
+    [SerializeField] private GameObject lobbyButton;
+    [SerializeField] private GameObject bones;
+    [SerializeField] private BodyManager bodyManager;
+
+    private bool isComplete = false;
 
     public void ShowLevelComplete()
     {
         levelCompleteText.SetActive(true);
+        lobbyButton.SetActive(true);
+    }
+
+    public void OnLobbyButtonClick()
+    {
+        SceneManager.LoadScene("LevelSelection");
     }
 
     void Update()
@@ -23,6 +33,12 @@ public class LevelComplete : MonoBehaviour
                 return;
             }
 
+            if (isComplete)
+            {
+                return;
+            }
+
+            isComplete = true;
             ShowLevelComplete();
         }
     }
