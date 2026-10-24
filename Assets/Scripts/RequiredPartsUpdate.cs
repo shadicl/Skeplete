@@ -4,26 +4,19 @@ using TMPro;
 public class RequiredPartsUpdate : MonoBehaviour
 {
     public TextMeshProUGUI partCounter;
-    public PlayerStats playerStats;
+    private PlayerStats playerStats;
     public GameObject requiredPartsObject;
-    public LevelComplete levelComplete;
 
     private int totalRequiredParts;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerStats = FindFirstObjectByType<PlayerStats>();
         totalRequiredParts = requiredPartsObject.transform.childCount;
+        partCounter.text = $"Parts Collected: {playerStats.requiredParts}/{totalRequiredParts}";
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateCounter()
     {
-        partCounter.text = "Part Collected: " + playerStats.requiredParts + "/" + totalRequiredParts;
-
-        if (playerStats.requiredParts >= totalRequiredParts)
-        {
-            levelComplete.ShowLevelComplete();
-        }
+        partCounter.text = $"Parts Collected: {playerStats.requiredParts}/{totalRequiredParts}";
     }
 }
